@@ -1,3 +1,7 @@
 .cheif{
   background-image: url('./assets//assets//home//chef-service.jpg');
 }
+
+.featured{
+  background-image: url('./assets//assets//home//featured.jpg');
+}

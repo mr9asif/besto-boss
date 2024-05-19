@@ -40,19 +40,24 @@ const OrderOnline = () => {
            className="mySwiper"
          >
            <SwiperSlide className="">
-              <img className="w-[400px] h-[500px]" src={slide1} alt="" />
+              <img className="w-[400px] relative h-[500px]" src={slide1} alt="" />
+              <h1 className="absolute bottom-8 text-3xl tracking-[5px] text-gray-100 left-[35%]">SALADS</h1>
            </SwiperSlide>
            <SwiperSlide>
-            <img  className="w-[400px] h-[500px]" src={slide2} alt="" />
+            <img  className="w-[400px] relative h-[500px]" src={slide2} alt="" />
+            <h1 className="absolute bottom-8 text-3xl tracking-[5px] text-gray-100 left-[35%]">SOUPS</h1>
            </SwiperSlide>
            <SwiperSlide >
-            <img  className="w-[400px] h-[500px]" src={slide3} alt="" />
+            <img  className="w-[400px] relative h-[500px]" src={slide3} alt="" />
+            <h1 className="absolute bottom-8 text-3xl tracking-[5px] text-gray-100 left-[35%]">PIZZAS</h1>
            </SwiperSlide>
            <SwiperSlide >
-             <img  className="w-[400px] h-[500px]" src={slide4} alt="" />
+             <img  className="w-[400px] relative h-[500px]" src={slide4} alt="" />
+             <h1 className="absolute bottom-8 text-3xl tracking-[5px] text-gray-100 left-[35%]">DISERTS</h1>
            </SwiperSlide>
            <SwiperSlide >
-             <img  className="w-[400px] h-[500px]" src={slide5} alt="" />
+             <img  className="w-[400px] relative h-[500px]" src={slide5} alt="" />
+             <h1 className="absolute bottom-8 text-3xl tracking-[5px] text-gray-100 left-[35%]">SALADS</h1>
            </SwiperSlide>
            
          </Swiper>
