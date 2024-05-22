@@ -1,5 +1,5 @@
-import Title from "../Shared/Title";
-import featured from '../assets/assets/home/featured.jpg'
+import Title from "../../Shared/Title";
+import featured from '/src/assets/assets/home/featured.jpg'
 
 const FeaturedMenu = () => {
     return (

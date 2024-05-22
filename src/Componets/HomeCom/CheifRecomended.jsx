@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Title from "../Shared/Title";
+import Title from "../../Shared/Title";
 import CheifItem from "./CheifItem";
 
 
 const CheifRecomended = () => {
     const [cheif, setCheif]=useState([]);
     useEffect(()=>{
-        fetch('Cheif.json')
+        fetch('http://localhost:3000/cheif')
         .then(res=>res.json())
         .then(data=>{
              setCheif(data)

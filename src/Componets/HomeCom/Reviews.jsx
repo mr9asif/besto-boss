@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Title from "../Shared/Title";
-import review from '../assets/assets/home/Group.png'
+import Title from "../../Shared/Title";
+import review from '/src/assets/assets/home/Group.png'
 import '@smastrom/react-rating/style.css'
 
 
@@ -22,7 +22,7 @@ import { Rating } from "@smastrom/react-rating";
 const Reviews = () => {
     const [reviews, setReviews]= useState([])
     useEffect(()=>{
-        fetch('Review.json')
+        fetch('http://localhost:3000/review')
         .then(res=>res.json())
         .then(data=>{
             setReviews(data)

@@ -5,6 +5,9 @@ import ContactUs from "../Pages/ContactUs";
 import Dashboard from "../Pages/Dashboard";
 import Menu from "../Pages/Menu";
 import Shop from "../Pages/Shop";
+import SignUp from "../Componets/Authentication/SignUp";
+import Login from "../Componets/Authentication/Login";
+import PrivetRoute from "../Componets/PrivetRoute/PrivetRoute";
 
 
 const router = createBrowserRouter([
@@ -29,8 +32,18 @@ const router = createBrowserRouter([
             element:<Menu></Menu>
         },
         {
-            path:'/shop',
-            element:<Shop></Shop>
+            path:'/shop/:category',
+            element:<PrivetRoute>
+            <Shop></Shop>
+            </PrivetRoute>
+        },
+        {
+            path:'/signup',
+            element:<SignUp></SignUp>
+        },
+        {
+            path:'/login',
+            element:<Login></Login>
         },
       ]
     },

@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
-import Title from "../Shared/Title";
-import MenuItem from "../Shared/MenuItem";
+
+import Title from "../../Shared/Title";
+import MenuItem from "../../Shared/MenuItem";
+import useMenu from "../../Hooks/useMenu";
 
 
 const PopularMenu = () => {
-    const [menu, setMenu]=useState([])
-    useEffect(()=>{
-         fetch('Menu.json')
-         .then(res=>res.json())
-         .then(data=>{
-             const popular = data.filter(item=> item.category === 'popular');
-             console.log(popular) 
-             setMenu(popular)
-            
-         })
-    },[])
+        const [menu, loading] = useMenu();
+        const popular = menu.filter(item=> item.category === 'popular');
+
+        if(loading){
+            return <h1>Loading........</h1>
+        }
     return (
         <div className="max-w-7xl mx-auto my-6">
             <Title header='Check it out-' underheader='POPULAR MENU' ></Title>
               
             <div className="md:grid lg:grid grid-cols-2 gap-8 my-8">
              {
-                menu.map(item=> <MenuItem key={item._id} item={item}></MenuItem>)
+                popular.map(item=> <MenuItem key={item._id} item={item}></MenuItem>)
              }
             </div>
            <div className="text-center my-12">
