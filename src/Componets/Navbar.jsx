@@ -2,10 +2,14 @@ import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Context } from "./Authprovider/Authprovider";
 import axios from "axios";
+import useCarts from "./Hooks/useCarts";
+import shoping from '/src/assets/assets/shop/cart-shopping-solid.svg'
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
     const { user, Signout } = useContext(Context);
-
+    const [carts]= useCarts()
+    console.log(carts)
   console.log(user)
     const handleSignout = ()=>{
         Signout()
@@ -47,6 +51,15 @@ const Navbar = () => {
                             {
                                 user &&  <NavLink to='/shop/salad' className={({ isActive }) => isActive ? 'text-[#EEFF25] font-bold' : 'text-white font-bold'}>OUR SHOP</NavLink>
                             }
+                            {
+                                user && (
+                                    <NavLink to='dashboard/carts' className="flex items-center gap-1 rounded-xl relative mx-3" >
+                                    <FaCartShopping  className="text-3xl text-white"/>
+                                     <h1 className="text-[14px] text-red-500 absolute top-3 left-5 font-semibold bg-yellow-300 p-1 rounded-xl">+{carts.length}</h1>
+                                    </NavLink>
+                                )
+                            }
+                            
                         </ul>
                     </div>
                     <div className="mx-3 flex justify-center items-center gap-4">

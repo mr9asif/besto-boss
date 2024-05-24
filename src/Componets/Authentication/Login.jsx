@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha  } from 'react-simple-captcha';
 import toast from "react-hot-toast";
 import axios from "axios";
+import useSecurePublic from "../Hooks/useSecurePublic";
 
 const Login = () => {
   window.scrollTo(0, 0)
@@ -16,16 +17,27 @@ const Login = () => {
    const [er, setEr]= useState('')
      const [disable, setDisable]= useState(true)
      const [cap, setCap]=useState('')
-     
+     const axiosSecurePublic = useSecurePublic();
+
+
     const handleGoogle=()=>{
        GoogleLogin()
        .then(res=>{
         console.log(res)
         const {email}= res.user
         const us = {email}
+        const userInfo = {
+          email: res.user.email,
+          name: res.user.DisplayName,
+        }
         
-        toast.success('Login Successfully!')
-        navigate(from, { replace: true });
+        axiosSecurePublic.post('/users', userInfo)
+        .then(res=>{
+          console.log(res.data)
+          toast.success('Login Successfully!')
+          navigate(from, { replace: true });
+        })
+       
 
         axios.post('http://localhost:3000/jwt', us, {withCredentials:true})
         .then(res=>{

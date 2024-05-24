@@ -2,16 +2,20 @@ import { useContext } from "react";
 import { Context } from "../Authprovider/Authprovider";
 import Swal from 'sweetalert2'
 
-import axios from "axios";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import { axiosSecure } from "../Hooks/AxiosSecure/useAxiosSecure";
+import useAxiosSecure from "../Hooks/AxiosSecure/useAxiosSecure";
+import useCarts from "../Hooks/useCarts";
+
 
 
 const CheifItem = ({item}) => {
     const {image, name, recipe, price} = item;
     const {user}= useContext(Context)
+    const [,refetch]=useCarts()
     const location = useLocation()
     const navigate = useNavigate()
+     const axiosSecure = useAxiosSecure();
      const handleADDCart=item=>{
         console.log(item)
             if(user && user.email){
@@ -20,7 +24,7 @@ const CheifItem = ({item}) => {
                     name, price, image,
                     email : user.email
                 }
-                axios.post('http://localhost:3000/carts', items)
+                axiosSecure.post('/cart', items)
                 .then(res=>{
                     console.log(res.data)
                     if(res.data.insertedId){
@@ -29,6 +33,8 @@ const CheifItem = ({item}) => {
                             text: `${name} Cart Added  Successfully`,
                             icon: "success"
                             });
+                            
+                            refetch()
                     }
                 })
             }

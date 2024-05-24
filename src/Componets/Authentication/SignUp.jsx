@@ -5,17 +5,19 @@ import { Context } from '../Authprovider/Authprovider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useForm } from "react-hook-form"
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+
 import toast from 'react-hot-toast';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import useSecurePublic from '../Hooks/useSecurePublic';
 const SignUp = () => {
   window.scrollTo(0, 0)
     const {CreateUser, Profile}=useContext(Context)
-    
+     const [error, setError]= useState('')
      const location = useLocation();
      const dis = location.state || '/'
      const navigate = useNavigate()
      const [show, setShow]= useState(false)
-  
+    const axiosSecurePublic = useSecurePublic();
 
     const {
       register,
@@ -28,13 +30,25 @@ const SignUp = () => {
        CreateUser(data.email,data.password)
        .then(Carent=>{
         console.log(Carent.user)
-        // navigate(dis)
+         
         Profile(data.DisplayName, data.photoURL)
         .then(res=>{
           console.log(res)
+          const userInfo = {
+            name : data.DisplayName,
+            email : data.email
+          }
+           axiosSecurePublic.post('/users', userInfo)
           
+            
+             toast.success('sign up successfully!')
+             navigate(dis)
+           
         })
-        toast.success('sign up successfully!')
+        .catch(error=>{
+          console.log(error)
+          setError(error)
+        })
        })
       
       }
@@ -67,15 +81,32 @@ const SignUp = () => {
                 <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" required />
                 {errors.email && <span>Email is required</span>}
                 </div>
-              <div className="form-control">
+                <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                    <span className="label-text">Password</span>
                 </label>
-                <input type="password" {...register("password", { required: true })} placeholder="password" className="input input-bordered" required />
+                <div className="relative">
+                <input type={show ? "text" : 'password'} {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern: {
+                        value: /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/,
+                        message: "Password must contain at least one capital letter and one special character"
+                    }
+                })} placeholder="password" className="input input-bordered w-full" required />
+                <span className="absolute top-4 right-3" onClick={()=>setShow(!show)}>{show ? <FaEye />: <FaEyeSlash />}</span>
                 </div>
+                {errors.password && errors.password.type === "pattern" && (
+                    <p className="text-red-500">Password must contain at least one capital letter and one special character.</p>
+                )}
+                {errors.password && errors.password.type === "minLength" && (
+                    <p className="text-red-500">Password must be at least 6 characters long.</p>
+                )}
+            </div>
                 <label className="label">
                   <h1 href="#" className="label-text-alt text-[15px] ">Already Regestered? Go to <Link to='/login' className="font-bold underline relative">Login</Link></h1>
                 </label>
+                <h1 className='my-4 text-red-400'>{error}</h1>
               <div className="form-control mt-6">
                 <button type='submit' className="btn btn-primary bg-orange-400 hover:bg-orange-700">Sign Up</button>
               </div>

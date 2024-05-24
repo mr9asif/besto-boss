@@ -8,6 +8,12 @@ import Shop from "../Pages/Shop";
 import SignUp from "../Componets/Authentication/SignUp";
 import Login from "../Componets/Authentication/Login";
 import PrivetRoute from "../Componets/PrivetRoute/PrivetRoute";
+import Dashbord from "../Layout/Dashbord";
+import Cart from "../Componets/DashBoard/Cart";
+import Admin from "../Componets/DashBoard/Admin";
+import AddItems from "../Componets/DashBoard/AddItems";
+import AllUsers from "../Componets/DashBoard/AllUsers";
+import ManageBookings from "../Componets/DashBoard/ManageBookings";
 
 
 const router = createBrowserRouter([
@@ -47,6 +53,32 @@ const router = createBrowserRouter([
         },
       ]
     },
+    {
+        path:'/dashboard',
+        element:<Dashbord></Dashbord>,
+        children:([
+            {
+                path:'/dashboard/carts',
+                element:<Cart></Cart>
+            },
+            {
+                path:'/dashboard/admin',
+                element:<Admin></Admin>
+            },
+            {
+                path:'/dashboard/additems',
+                element:<AddItems></AddItems>
+            },
+            {
+                path:'/dashboard/managebookings',
+                element:<ManageBookings></ManageBookings>
+            },
+            {
+                path:'/dashboard/allusers',
+                element:<AllUsers></AllUsers>
+            },
+        ])
+    }
   ]);
 
   export default router;
